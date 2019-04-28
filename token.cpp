@@ -51,7 +51,7 @@ Token SintChecker::CheckToken(std::string& line) {
     tok.typePrint = "SINT";
     tok.value = '0';
     line.erase(line.begin());
-  } else if (line[0] == '-' || isdigit(line[0])) {
+  } else if (line[0] == '-' || (isdigit(line[0]) && line[0] != '0')) {
     i++;
     while (i < line.length() && isdigit(line[i]))
       i++;
