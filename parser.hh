@@ -31,11 +31,12 @@ public:
 class Parser {
   std::ifstream file;
   std::vector<std::unique_ptr<I_Checker>> token_tab;
+  std::vector<Token> result;
 
 public:
   Parser(std::string filename);
   ~Parser() = default;
-  void PrintFile(void);
+  void PrintResult(void);
   void ParseFile(void);
 };
 

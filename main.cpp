@@ -10,6 +10,7 @@ int main(int ac, char** av) {
   try {
     Parser parser(av[1]);
     parser.ParseFile();
+    parser.PrintResult();
   } catch (std::string e) {
     std::cout << e << std::endl;
     return (1);

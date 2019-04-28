@@ -2,7 +2,7 @@
 
 Token SpaceChecker::CheckToken(std::string& line) {
   Token tok;
-  int i = 0;
+  long unsigned int i = 0;
 
   while (i < line.length() && line[i] == ' ')
     i++;
@@ -41,13 +41,13 @@ Token CharChecker::CheckToken(std::string& line) {
 
 Token SintChecker::CheckToken(std::string& line) {
   Token tok;
-  int i = 0;
+  long unsigned int i = 0;
 
   if (line[0] == '0') {
     tok.typePrint = "SINT";
     tok.value = '0';
     line.erase(line.begin());
-  } else if (line[0] == '-' | isdigit(line[0])) {
+  } else if (line[0] == '-' || isdigit(line[0])) {
     i++;
     while (i < line.length() && isdigit(line[i]))
       i++;
@@ -61,7 +61,7 @@ Token SintChecker::CheckToken(std::string& line) {
 
 Token IdChecker::CheckToken(std::string& line) {
   Token tok;
-  int i = 0;
+  long unsigned int i = 0;
 
   if (isalpha(line[i])) {
     i++;
@@ -79,7 +79,7 @@ Token IdChecker::CheckToken(std::string& line) {
 
 Token StrvChecker::CheckToken(std::string& line) {
   Token tok;
-  int i = 0;
+  long unsigned int i = 0;
 
   if (line[0] == '\"') {
     i++;

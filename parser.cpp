@@ -25,10 +25,11 @@ Parser::Parser(std::string filename) {
   token_tab.push_back(std::make_unique<CommaChecker>());
 }
 
-void Parser::PrintFile(void) {
-  std::string line;
-  while (std::getline(file, line)) {
-    std::cout << "Line: " << line << std::endl;
+void Parser::PrintResult(void) {
+  for (auto &i : result) {
+    i.Print();
+    if (i.typePrint == "SEMICO")
+      std::cout << std::endl;
   }
 }
 
@@ -39,25 +40,21 @@ void Parser::ParseFile(void) {
   std::string savedLine;
 
   while (std::getline(file, line)) {
-    if (line.length() != 0) {
-      savedLine = line;
-      while (changed == true && line.length() != 0) {
-	changed = false;
-	for (auto &i: token_tab) {
-	  Token tmp = i->CheckToken(line);
-	  if (tmp.value != "") {
-	    tmp.Print();
-	    changed = true;
-	  }
-	  if (line.length() == 0)
-	    break;
+    savedLine = line;
+    while (changed == true && line.length() != 0) {
+      changed = false;
+      for (auto &i: token_tab) {
+	Token tmp = i->CheckToken(line);
+	if (tmp.value != "") {
+	  result.push_back(tmp);
+	  changed = true;
 	}
+	if (line.length() == 0)
+	  break;
       }
-      if (line.length() != 0)
-	throw "Lexical error at line " + std::to_string(countLine) + "\n\t" + savedLine;
-      else
-	std::cout << std::endl;
     }
+    if (line.length() != 0)
+      throw "Lexical error at line " + std::to_string(countLine) + "\n\t" + savedLine;
     countLine++;
   }
 };
