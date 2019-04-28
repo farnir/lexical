@@ -196,7 +196,7 @@ Token OperatorChecker::CheckToken(std::string& line) {
     tok.value = line[0];
     line.erase(line.begin());
   } else if (line[0] == '/') {
-    if (line.length() >= 2 && line[1] == '/' || line[1] == '*')
+    if (line.length() >= 2 && (line[1] == '/' || line[1] == '*'))
       return tok;
     tok.typePrint = "OPERA";
     tok.value = line[0];

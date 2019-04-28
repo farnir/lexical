@@ -1,3 +1,3 @@
-int bb8 = -87;
-char ceepo = "bonjour;
-
+int bb8 = -1;
+char ceepo = "bonjour";
+// lalala
