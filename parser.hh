@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 
+// Structure that represent a token with a value and a literal type.
 struct Token {
   std::string typePrint;
   std::string value;
@@ -22,12 +23,14 @@ struct Token {
   }
 };
 
+// Interface that enable to create a unlimited amount of token recognizer.
 class I_Checker {
 public:
   virtual ~I_Checker() {};
   virtual Token CheckToken(std::string &line) = 0;
 };
 
+// Main class that represent the Parser, that will open file and handle other structures.
 class Parser {
   std::ifstream file;
   std::vector<std::unique_ptr<I_Checker>> token_tab;

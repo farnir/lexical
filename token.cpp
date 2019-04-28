@@ -1,5 +1,6 @@
 #include "token.hh"
 
+// Parse a line to detect space characters.
 Token SpaceChecker::CheckToken(std::string& line) {
   Token tok;
   long unsigned int i = 0;
@@ -11,6 +12,7 @@ Token SpaceChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect int token.
 Token IntChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -25,6 +27,7 @@ Token IntChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect char token.
 Token CharChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -39,6 +42,7 @@ Token CharChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect signed integer.
 Token SintChecker::CheckToken(std::string& line) {
   Token tok;
   long unsigned int i = 0;
@@ -59,6 +63,7 @@ Token SintChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect identifier.
 Token IdChecker::CheckToken(std::string& line) {
   Token tok;
   long unsigned int i = 0;
@@ -77,7 +82,8 @@ Token IdChecker::CheckToken(std::string& line) {
   return tok;
 }
 
-Token StrvChecker::CheckToken(std::string& line) {
+// Parse a line to detect literal string.
+Token LstrChecker::CheckToken(std::string& line) {
   Token tok;
   long unsigned int i = 0;
 
@@ -87,7 +93,7 @@ Token StrvChecker::CheckToken(std::string& line) {
       i++;
     if (line[i] == '\"') {
       i++;
-      tok.typePrint = "STRV";
+      tok.typePrint = "LSTR";
       tok.value = line;
       tok.value.erase(tok.value.begin() + i, tok.value.end());
       line.erase(line.begin(), line.begin() + i);
@@ -96,6 +102,7 @@ Token StrvChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect if statement.
 Token IfChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -110,6 +117,7 @@ Token IfChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect else statement.
 Token ElseChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -124,6 +132,7 @@ Token ElseChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect while statement.
 Token WhileChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -138,6 +147,7 @@ Token WhileChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect return statement.
 Token ReturnChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -154,6 +164,7 @@ Token ReturnChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect comparators.
 Token ComparatorChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -174,6 +185,7 @@ Token ComparatorChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect operators.
 Token OperatorChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -185,6 +197,7 @@ Token OperatorChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect both types of brackets.
 Token BracketChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -200,6 +213,7 @@ Token BracketChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect both types of parenthesis.
 Token ParenChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -215,6 +229,7 @@ Token ParenChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect equal token.
 Token EqualChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -226,6 +241,7 @@ Token EqualChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect comma token.
 Token CommaChecker::CheckToken(std::string& line) {
   Token tok;
 
@@ -237,6 +253,7 @@ Token CommaChecker::CheckToken(std::string& line) {
   return tok;
 }
 
+// Parse a line to detect semi colon token.
 Token SemiChecker::CheckToken(std::string& line) {
   Token tok;
 
