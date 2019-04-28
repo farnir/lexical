@@ -1,7 +1,7 @@
 int bb8 = -87;
 char ceepo = "bonjour";
 
-while while if while return if char int if return while while if return int char return;
+while while;
 
 if (bb8 <= ceepo, bb8 < ceepo) {
   while (bb8 == 18)
