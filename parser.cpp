@@ -1,6 +1,7 @@
 #include "parser.hh"
 #include "token.hh"
 
+// Parser constructor that save all token recognizer in a vector.
 Parser::Parser(std::string filename) {
   file.open(filename);
   if (!file)
@@ -15,7 +16,7 @@ Parser::Parser(std::string filename) {
   token_tab.push_back(std::make_unique<WhileChecker>());
   token_tab.push_back(std::make_unique<ReturnChecker>());
   token_tab.push_back(std::make_unique<IdChecker>());
-  token_tab.push_back(std::make_unique<StrvChecker>());
+  token_tab.push_back(std::make_unique<LstrChecker>());
   token_tab.push_back(std::make_unique<OperatorChecker>());
   token_tab.push_back(std::make_unique<ComparatorChecker>());
   token_tab.push_back(std::make_unique<ParenChecker>());
@@ -25,6 +26,7 @@ Parser::Parser(std::string filename) {
   token_tab.push_back(std::make_unique<CommaChecker>());
 }
 
+// Simple function to output all the tokens saved.
 void Parser::PrintResult(void) {
   for (auto &i : result) {
     i.Print();
@@ -33,6 +35,11 @@ void Parser::PrintResult(void) {
   }
 }
 
+// This parse function will take one line at a time from a file.
+// Then try every token recognition function on this line.
+// When a token recognizer found a token, it will erase it from the line.
+// It continue until no line is left.
+// In a line if no token is recognized, a exception is throw.
 void Parser::ParseFile(void) {
   std::string line;
   int countLine = 0;
