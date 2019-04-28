@@ -3,7 +3,7 @@
 
 int main(int ac, char** av) {
   if (ac != 2) {
-    std::cout << "Usage: ./analyse file" << std::endl;
+    std::cout << "Usage: ./lexical file" << std::endl;
     return (1);
   }
 
