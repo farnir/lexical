@@ -51,14 +51,16 @@ Token SintChecker::CheckToken(std::string& line) {
     tok.typePrint = "SINT";
     tok.value = '0';
     line.erase(line.begin());
-  } else if (line[0] == '-' || (isdigit(line[0]) && line[0] != '0')) {
-    i++;
-    while (i < line.length() && isdigit(line[i]))
+  } else if (line[0] == '-' || isdigit(line[0])) {
+      if (line.length() >= 2 && line[0] == '-' && line[1] == '0')
+          return tok;
       i++;
-    tok.typePrint = "SINT";
-    tok.value = line;
-    tok.value.erase(tok.value.begin() + i, tok.value.end());
-    line.erase(line.begin(), line.begin() + i);
+      while (i < line.length() && isdigit(line[i]))
+          i++;
+      tok.typePrint = "SINT";
+      tok.value = line;
+      tok.value.erase(tok.value.begin() + i, tok.value.end());
+      line.erase(line.begin(), line.begin() + i);
   }
   return tok;
 }
