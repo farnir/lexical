@@ -19,7 +19,7 @@ Token IntChecker::CheckToken(std::string& line) {
   if (line.length() >= 3) {
     if ((line[0] == 'i' && line[1] == 'n' && line[2] == 't') ||
 	(line[0] == 'I' && line[1] == 'N' && line[2] == 'T')) {
-      tok.typePrint = "INT";
+      tok.typePrint = "vtype";
       tok.value = "int";
       line.erase(line.begin(), line.begin() + 3);
     }
@@ -34,7 +34,7 @@ Token CharChecker::CheckToken(std::string& line) {
   if (line.length() >= 4) {
     if ((line[0] == 'c' && line[1] == 'h' && line[2] == 'a' && line[3] == 'r') ||
 	(line[0] == 'C' && line[1] == 'H' && line[2] == 'A' && line[3] == 'R')) {
-      tok.typePrint = "CHAR";
+      tok.typePrint = "vtype";
       tok.value = "char";
       line.erase(line.begin(), line.begin() + 4);
     }
@@ -48,7 +48,7 @@ Token SintChecker::CheckToken(std::string& line) {
   long unsigned int i = 0;
 
   if (line[0] == '0') {
-    tok.typePrint = "SINT";
+    tok.typePrint = "num";
     tok.value = '0';
     line.erase(line.begin());
   } else if (line[0] == '-' || isdigit(line[0])) {
@@ -57,7 +57,7 @@ Token SintChecker::CheckToken(std::string& line) {
       i++;
       while (i < line.length() && isdigit(line[i]))
           i++;
-      tok.typePrint = "SINT";
+      tok.typePrint = "num";
       tok.value = line;
       tok.value.erase(tok.value.begin() + i, tok.value.end());
       line.erase(line.begin(), line.begin() + i);
@@ -76,7 +76,7 @@ Token IdChecker::CheckToken(std::string& line) {
       i++;
   }
   if (i != 0) {
-    tok.typePrint = "ID";
+    tok.typePrint = "id";
     tok.value = line;
     tok.value.erase(tok.value.begin() + i, tok.value.end());
     line.erase(line.begin(), line.begin() + i);
@@ -95,7 +95,7 @@ Token LstrChecker::CheckToken(std::string& line) {
       i++;
     if (line[i] == '\"') {
       i++;
-      tok.typePrint = "LSTR";
+      tok.typePrint = "literal";
       tok.value = line;
       tok.value.erase(tok.value.begin() + i, tok.value.end());
       line.erase(line.begin(), line.begin() + i);
@@ -111,7 +111,7 @@ Token IfChecker::CheckToken(std::string& line) {
   if (line.length() >= 2) {
     if ((line[0] == 'i' && line[1] == 'f') ||
 	(line[0] == 'I' && line[1] == 'F')) {
-      tok.typePrint = "IF";
+      tok.typePrint = "if";
       tok.value = "if";
       line.erase(line.begin(), line.begin() + 2);
     }
@@ -126,7 +126,7 @@ Token ElseChecker::CheckToken(std::string& line) {
   if (line.length() >= 4) {
     if ((line[0] == 'e' && line[1] == 'l' && line[2] == 's' && line[3] == 'e') ||
 	(line[0] == 'E' && line[1] == 'L' && line[2] == 'S' && line[3] == 'E')) {
-      tok.typePrint = "ELSE";
+      tok.typePrint = "else";
       tok.value = "else";
       line.erase(line.begin(), line.begin() + 4);
     }
@@ -141,7 +141,7 @@ Token WhileChecker::CheckToken(std::string& line) {
   if (line.length() >= 5) {
     if ((line[0] == 'w' && line[1] == 'h' && line[2] == 'i' && line[3] == 'l' && line[4] == 'e') ||
 	(line[0] == 'W' && line[1] == 'H' && line[2] == 'I' && line[3] == 'L' && line[4] == 'E')) {
-      tok.typePrint = "WHILE";
+      tok.typePrint = "while";
       tok.value = "while";
       line.erase(line.begin(), line.begin() + 5);
     }
@@ -158,7 +158,7 @@ Token ReturnChecker::CheckToken(std::string& line) {
 	 line[3] == 'u' && line[4] == 'r' && line[5] == 'n') ||
 	(line[0] == 'R' && line[1] == 'E' && line[2] == 'T' &&
 	 line[3] == 'U' && line[4] == 'R' && line[5] == 'N')) {
-      tok.typePrint = "RETURN";
+      tok.typePrint = "return";
       tok.value = "return";
       line.erase(line.begin(), line.begin() + 6);
     }
@@ -174,12 +174,12 @@ Token ComparatorChecker::CheckToken(std::string& line) {
     if ((line[0] == '=' && line[1] == '=') ||
 	(line[0] == '<' && line[1] == '=') ||
 	(line[0] == '>' && line[1] == '=')) {
-      tok.typePrint = "COMPAR";
+      tok.typePrint = "comp";
       tok.value = line;
       tok.value.erase(tok.value.begin() + 2, tok.value.end());
       line.erase(line.begin(), line.begin() + 2);
     } else if (line[0] == '<' || line[0] == '>') {
-      tok.typePrint = "COMPAR";
+      tok.typePrint = "comp";
       tok.value = line[0];
       line.erase(line.begin());
     }
@@ -191,14 +191,14 @@ Token ComparatorChecker::CheckToken(std::string& line) {
 Token OperatorChecker::CheckToken(std::string& line) {
   Token tok;
 
-  if (line[0] == '+' || line[0] == '-' || line[0] == '*') {
-    tok.typePrint = "OPERA";
+  if (line[0] == '+' || line[0] == '-') {
+    tok.typePrint = "addsub";
     tok.value = line[0];
     line.erase(line.begin());
-  } else if (line[0] == '/') {
+  } else if (line[0] == '/' || line[0] == '*') {
     if (line.length() >= 2 && (line[1] == '/' || line[1] == '*'))
       return tok;
-    tok.typePrint = "OPERA";
+    tok.typePrint = "multdiv";
     tok.value = line[0];
     line.erase(line.begin());
   }
@@ -210,11 +210,11 @@ Token BracketChecker::CheckToken(std::string& line) {
   Token tok;
 
   if (line[0] == '{') {
-    tok.typePrint = "LBRACK";
+    tok.typePrint = "lbrace";
     tok.value = "{";
     line.erase(line.begin());
   } else if (line[0] == '}') {
-    tok.typePrint = "RBRACK";
+    tok.typePrint = "lbrace";
     tok.value = "}";
     line.erase(line.begin());
   }
@@ -226,11 +226,11 @@ Token ParenChecker::CheckToken(std::string& line) {
   Token tok;
 
   if (line[0] == '(') {
-    tok.typePrint = "LPAREN";
+    tok.typePrint = "lparen";
     tok.value = "(";
     line.erase(line.begin());
   } else if (line[0] == ')') {
-    tok.typePrint = "RPAREN";
+    tok.typePrint = "rparen";
     tok.value = ")";
     line.erase(line.begin());
   }
@@ -242,7 +242,7 @@ Token EqualChecker::CheckToken(std::string& line) {
   Token tok;
 
   if (line[0] == '=') {
-    tok.typePrint = "EQUAL";
+    tok.typePrint = "assign";
     tok.value = "=";
     line.erase(line.begin());
   }
@@ -254,7 +254,7 @@ Token CommaChecker::CheckToken(std::string& line) {
   Token tok;
 
   if (line[0] == ',') {
-    tok.typePrint = "COMMA";
+    tok.typePrint = "comma";
     tok.value = ",";
     line.erase(line.begin());
   }
@@ -266,7 +266,7 @@ Token SemiChecker::CheckToken(std::string& line) {
   Token tok;
 
   if (line[0] == ';') {
-    tok.typePrint = "SEMICO";
+    tok.typePrint = "semi";
     tok.value = ";";
     line.erase(line.begin());
   }
