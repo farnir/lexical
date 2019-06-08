@@ -214,7 +214,7 @@ Token BracketChecker::CheckToken(std::string& line) {
     tok.value = "{";
     line.erase(line.begin());
   } else if (line[0] == '}') {
-    tok.typePrint = "lbrace";
+    tok.typePrint = "rbrace";
     tok.value = "}";
     line.erase(line.begin());
   }
